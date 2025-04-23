@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ProjectileLauncher : NetworkBehaviour
 {
-    
+
     [Header("References")]
     [SerializeField] private InputReader inputReader;
     [SerializeField] private Transform projectileSpawnPoint;
@@ -11,7 +11,7 @@ public class ProjectileLauncher : NetworkBehaviour
     [SerializeField] private GameObject clientProjectilePrefab;
     [SerializeField] private GameObject muzzleFlash;
     [SerializeField] private Collider2D playerCollider;
-    
+
 
     [Header("Settings")]
     [SerializeField] private float projectileSpeed;
@@ -25,14 +25,14 @@ public class ProjectileLauncher : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if(!IsOwner) {return; }
+        if (!IsOwner) { return; }
 
         inputReader.PrimaryFireEvent += HandlePrimaryFire;
     }
 
     public override void OnNetworkDespawn()
     {
-        if(!IsOwner) {return; }
+        if (!IsOwner) { return; }
         inputReader.PrimaryFireEvent -= HandlePrimaryFire;
     }
 
@@ -54,8 +54,8 @@ public class ProjectileLauncher : NetworkBehaviour
             }
         }
 
-        if(!IsOwner) {return; }
-        if(!shouldFire) {return; }
+        if (!IsOwner) { return; }
+        if (!shouldFire) { return; }
 
         if (Time.time < (1 / fireRate) + previousFireTime) { return; }
 
@@ -102,9 +102,9 @@ public class ProjectileLauncher : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    private void SpawnDummyProjectileClientRpc (Vector3 position, Vector3 up)
+    private void SpawnDummyProjectileClientRpc(Vector3 position, Vector3 up)
     {
-        if(IsOwner) { return; }
+        if (IsOwner) { return; }
         SpawnDummyProjectile(position, up);
     }
 }
