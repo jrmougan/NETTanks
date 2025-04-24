@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1512824386091498478}
   - component: {fileID: -1662188919072372570}
   - component: {fileID: 5785872489167542238}
+  - component: {fileID: 54138468504757849}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -193,6 +194,21 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   <MaxHealth>k__BackingField: 100
   CurrentHealth:
+    m_InternalValue: 0
+--- !u!114 &54138468504757849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143417338257459549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47fa6c0099a4e74e9dbb297c7609b6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  TotalCoins:
     m_InternalValue: 0
 --- !u!1 &2409677522156468774
 GameObject:
