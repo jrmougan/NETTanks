@@ -55,7 +55,7 @@ public class ClientGameManager : IDisposable
 
         UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
 
-        RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
+        RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "wss");
         transport.SetRelayServerData(relayServerData);
 
         UserData userData = new UserData
