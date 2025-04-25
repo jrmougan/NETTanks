@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -9,11 +10,12 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class ClientGameManager
 {
-    private const string MenuSceneName = "Menu";
     private JoinAllocation allocation;
+
+    private const string MenuSceneName = "Menu";
+
     public async Task<bool> InitAsync()
     {
         await UnityServices.InitializeAsync();
@@ -22,21 +24,15 @@ public class ClientGameManager
 
         if (authState == AuthState.Authenticated)
         {
-            Debug.Log("Authenticated successfully!");
             return true;
         }
-        else
-        {
-            Debug.LogError("Authentication failed!");
-            return false;
-        }
+
+        return false;
     }
 
     public void GoToMenu()
     {
-
         SceneManager.LoadScene(MenuSceneName);
-        Debug.Log("Loading menu scene...");
     }
 
     public async Task StartClientAsync(string joinCode)
@@ -56,7 +52,16 @@ public class ClientGameManager
         RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
         transport.SetRelayServerData(relayServerData);
 
+        UserData userData = new UserData
+        {
+            userName = PlayerPrefs.GetString(NameSelector.PlayerNameKey, "Missing Name")
+        };
+        string payload = JsonUtility.ToJson(userData);
+        byte[] payloadBytes = Encoding.UTF8.GetBytes(payload);
+
+        NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadBytes;
+
+
         NetworkManager.Singleton.StartClient();
     }
-
 }
